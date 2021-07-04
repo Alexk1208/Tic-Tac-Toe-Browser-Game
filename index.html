@@ -4,22 +4,40 @@
     </head>
     <body>
         <table id = 'tableGame'>
-            <tr id = 'firstRow'>
+            <tr class = 'row'>
                 <td id = '0'></td>
                 <td id = '1'></td>
                 <td id = '2'></td>
             </tr>
-            <tr id = 'second'>
+            <tr class = 'row'>
                 <td id = '3'></td>
                 <td id = '4'></td>
                 <td id = '5'></td>
             </tr>
-            <tr id = 'third'>
+            <tr class = 'row'>
                 <td id = '6'></td>
                 <td id = '7'></td>
                 <td id = '8'></td>
             </tr>
         </table>
+        <div>Player1:
+            <input id = 'player1Name' placeholder = 'Add Name Here'></input>
+            <select id = 'player1Select'>
+                <option value = 'default'>Pick a Shape</option>
+                <option value = 'x'>X</option>
+                <option value = 'o'>O</option>
+            </select>
+        </div>
+        <div>Player2:
+            <input id = 'player2Name' placeholder = 'Add Name Here'></input>
+            <select id = 'player2Select'>
+                <option value = 'default'>Pick a Shape</option>
+                <option value = 'x'>X</option>
+                <option value = 'o'>O</option>
+            </select>
+        </div>
+        <button id = 'startGame'>Start</button>
+        <button id = 'resetGame'>Reset</button>
     </body>
     <script src = 'script.js'></script>
 </html>
