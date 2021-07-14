@@ -9,100 +9,109 @@ const GameBoard = (() => {
         array.splice(index, 1, element);
     }
 
-    const gameBoardVictoryLogic = (board, letter, player) =>{
+    const gameBoardVictoryLogic = (letter, player) =>{
+        let winnerDisplay = document.getElementById('winnerDisplay');
+        console.log('test')
         switch (true) {
-            case board[0] === letter && board[1] === letter && board[2] === letter:
-                alert(`${player} Wins!`)
+            case gameBoard[0] === letter && gameBoard[1] === letter && gameBoard[2] === letter:
+                winnerDisplay.textContent = (`${player} Wins!`);
                 break;
-            case board[3] === letter && board[4] === letter && board[5] === letter:
-                alert(`${player} Wins!`)
+            case gameBoard[3] === letter && gameBoard[4] === letter && gameBoard[5] === letter:
+                winnerDisplay.textContent = (`${player} Wins!`);
                 break;
-            case board[6] === letter && board[7] === letter && board[8] === letter:
-                alert(`${player} Wins!`)
+            case gameBoard[6] === letter && gameBoard[7] === letter && gameBoard[8] === letter:
+                winnerDisplay.textContent = (`${player} Wins!`);
                 break;
-            case board[0] === letter && board[3] === letter && board[6] === letter:
-                alert(`${player} Wins!`)
+            case gameBoard[0] === letter && gameBoard[3] === letter && gameBoard[6] === letter:
+                winnerDisplay.textContent = (`${player} Wins!`);
                 break;
-            case board[1] === letter && board[4] === letter && board[7] === letter:
-                alert(`${player} Wins!`)
+            case gameBoard[1] === letter && gameBoard[4] === letter && gameBoard[7] === letter:
+                winnerDisplay.textContent = (`${player} Wins!`);
                 break;
-            case board[2] === letter && board[5] === letter && board[8] === letter:
-                alert(`${player} Wins!`)
+            case gameBoard[2] === letter && gameBoard[5] === letter && gameBoard[8] === letter:
+                winnerDisplay.textContent = (`${player} Wins!`);
                 break;
-            case board[0] === letter && board[4] === letter && board[8] === letter:
-                alert(`${player} Wins!`)
+            case gameBoard[0] === letter && gameBoard[4] === letter && gameBoard[8] === letter:
+                winnerDisplay.textContent = (`${player} Wins!`);
                 break;
-            case board[2] === letter && board[4] === letter && board[6] === letter:
-                alert(`${player} Wins!`)
+            case gameBoard[2] === letter && gameBoard[4] === letter && gameBoard[6] === letter:
+                winnerDisplay.textContent = (`${player} Wins!`);
                 break;
-            case board.every(item => item === 'x' || item === 'o'):
-                alert(`Tie Game!`)
+            case gameBoard.every(item => item === 'x' || item === 'o'):
+                winnerDisplay.textContent = (`Tie Game!`);
                 break;
         }
     }
 
-    const gameBoardDisplayArray = (player1, player2) =>{
-        document.querySelectorAll('td').forEach((element) => {
-            element.addEventListener('click', ()=>{
-                let elementVal = parseInt(element.id);
-                if(gameBoard[elementVal] === 'x' || gameBoard[elementVal] === 'o'){
-                    return alert('That spot is already taken');
-                }
-                else if(player1.turn === true){
-                    insertAt(gameBoard, elementVal, player1.letter);
-                    for(i = 0; gameBoard.length > i; i++){
-                        document.getElementById(i).textContent = gameBoard[i];
-                    };
-                    player1.turn = false;
-                    player2.turn = true;
-                    gameBoardVictoryLogic(gameBoard, player1.letter, player1.name);
-                }
-                else if(player2.turn === true){
-                    insertAt(gameBoard, elementVal, player2.letter);
-                    for(i = 0; gameBoard.length > i; i++){
-                        document.getElementById(i).textContent = gameBoard[i];
-                    };
-                    player2.turn = false;
-                    player1.turn = true;
-                    gameBoardVictoryLogic(gameBoard, player2.letter, player2.name);
-                }
-            });
-        });
-    };
-
-    const players = () => {
-        const eachName1 = document.getElementById('player1Name').value;
-        const eachShape1 = document.getElementById('player1Select').value;
-        const eachName2 = document.getElementById('player2Name').value;
-        const eachShape2 = document.getElementById('player2Select').value;
-
-        if(eachName1 === 'placeholder'|| eachShape1 === 'default'){
-            return alert('Player 1 must enter all Details');
+    const gameBoardDisplayArray = (element, player1, player2) =>{
+        
+        let elementVal = parseInt(element.id);
+        if(gameBoard[elementVal] === 'x' || gameBoard[elementVal] === 'o'){
+            return alert('That spot is already taken');
         }
-        else if(eachName2 === 'placeholder'|| eachShape2 === 'default'){
-            return alert('Player 2 must enter all Details');
+        else if(player1.turn === true){
+            insertAt(gameBoard, elementVal, player1.letter);
+            for(i = 0; gameBoard.length > i; i++){
+                document.getElementById(i).textContent = gameBoard[i];
+            };
+            player1.turn = false;
+            player2.turn = true;
+            gameBoardVictoryLogic('x', player1.name);
         }
         else{
-            p1 = player(eachShape1, eachName1, true);
-            p2 = player(eachShape2, eachName2,false);
-            return p1, p2;
+            insertAt(gameBoard, elementVal, player2.letter);
+            for(i = 0; gameBoard.length > i; i++){
+                document.getElementById(i).textContent = gameBoard[i];
+            };
+            player1.turn = true;
+            player2.turn = false;
+            gameBoardVictoryLogic('o', player2.name);
         }
-    }
+        console.log(gameBoard)
+    };
 
-    return{gameBoardDisplayArray, players};
+    const resetButton = (p1, p2) =>{
+        gameBoard = ['', '', '', '', '', '', '','',''];
+        document.getElementById('player1Name').value = '';
+        document.getElementById('player2Name').value = '';
+        p1.turn = true;
+        p2.turn = false;
+        let winnerDisplay = document.getElementById('winnerDisplay');
+        winnerDisplay.innerHTML = '';
+        for(i = 0; gameBoard.length > i; i++){
+            document.getElementById(i).textContent = gameBoard[i];
+        };
+    };
+
+    return{gameBoardDisplayArray, resetButton};
 })();
 
 const GameFlow = (() => {
-    document.getElementById('getPlayers').addEventListener('click', () =>{
-        GameBoard.players();
-    })
-    document.getElementById('startGame').addEventListener('click', () =>{
-        GameBoard.gameBoardDisplayArray(p1, p2);
-    })
+    const players = () => {
+        const eachName1 = document.getElementById('player1Name').value;
+        const eachName2 = document.getElementById('player2Name').value;
+        if(eachName1 === 'placeholder'){
+            return alert('Player 1 must enter all Details');
+        }
+        else if(eachName2 === 'placeholder'){
+            return alert('Player 2 must enter all Details');
+        }
+        else{
+            p1 = player('x', eachName1, true);
+            p2 = player('o', eachName2, false);
+        }
+    }
+    document.getElementById('startGame').addEventListener('click', ()=>{
+        players();
+    });
 
-    // document.getElementById('resetGame').addEventListener('click', () =>{
-    //     playerNum1 = null;
-    //     playerNum2 = null;
+    document.querySelectorAll('td').forEach(element => {
+        element.addEventListener('click', () => {
+            GameBoard.gameBoardDisplayArray(element, p1, p2);
+        });
+    });
 
-    // })
+    document.getElementById('resetGame').addEventListener('click', () =>{
+        GameBoard.resetButton(p1, p2);
+    })
 })();

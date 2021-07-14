@@ -3,6 +3,7 @@
         <link rel="stylesheet" href = "style.css">
     </head>
     <body>
+        <div id = "winnerDisplay"></div>
         <table id = 'tableGame'>
             <tr class = 'row'>
                 <td id = '0'></td>
@@ -22,21 +23,11 @@
         </table>
         <div>Player1:
             <input id = 'player1Name' placeholder = 'Add Name Here'></input>
-            <select id = 'player1Select'>
-                <option value = 'default'>Pick a Shape</option>
-                <option value = 'x'>X</option>
-                <option value = 'o'>O</option>
             </select>
         </div>
         <div>Player2:
             <input id = 'player2Name' placeholder = 'Add Name Here'></input>
-            <select id = 'player2Select'>
-                <option value = 'default'>Pick a Shape</option>
-                <option value = 'x'>X</option>
-                <option value = 'o'>O</option>
-            </select>
         </div>
-        <button id = 'getPlayers'>Register Players</button>
         <button id = 'startGame'>Start</button>
         <button id = 'resetGame'>Reset</button>
     </body>
