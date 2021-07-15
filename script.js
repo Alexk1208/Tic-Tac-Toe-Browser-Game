@@ -11,7 +11,10 @@ const GameBoard = (() => {
 
     const gameBoardVictoryLogic = (letter, player) =>{
         let winnerDisplay = document.getElementById('winnerDisplay');
-        console.log('test')
+        if(winnerDisplay.textContent !== ''){
+            console.log('read winner')
+            return;
+        }
         switch (true) {
             case gameBoard[0] === letter && gameBoard[1] === letter && gameBoard[2] === letter:
                 winnerDisplay.textContent = (`${player} Wins!`);
@@ -44,9 +47,13 @@ const GameBoard = (() => {
     }
 
     const gameBoardDisplayArray = (element, player1, player2) =>{
-        
         let elementVal = parseInt(element.id);
-        if(gameBoard[elementVal] === 'x' || gameBoard[elementVal] === 'o'){
+        let winnerDisplay = document.getElementById('winnerDisplay');
+        if(winnerDisplay.textContent !== ''){
+            console.log('read winner')
+            return;
+        }
+        else if(gameBoard[elementVal] === 'x' || gameBoard[elementVal] === 'o'){
             return alert('That spot is already taken');
         }
         else if(player1.turn === true){
@@ -72,8 +79,6 @@ const GameBoard = (() => {
 
     const resetButton = (p1, p2) =>{
         gameBoard = ['', '', '', '', '', '', '','',''];
-        document.getElementById('player1Name').value = '';
-        document.getElementById('player2Name').value = '';
         p1.turn = true;
         p2.turn = false;
         let winnerDisplay = document.getElementById('winnerDisplay');
@@ -103,12 +108,12 @@ const GameFlow = (() => {
     }
     document.getElementById('startGame').addEventListener('click', ()=>{
         players();
-    });
-
-    document.querySelectorAll('td').forEach(element => {
-        element.addEventListener('click', () => {
-            GameBoard.gameBoardDisplayArray(element, p1, p2);
+        document.querySelectorAll('td').forEach(element => {
+            element.addEventListener('click', () => {
+                GameBoard.gameBoardDisplayArray(element, p1, p2);
+            });
         });
+        document.getElementById('startGame').disabled = true;
     });
 
     document.getElementById('resetGame').addEventListener('click', () =>{
